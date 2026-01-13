@@ -65,10 +65,11 @@ export function useMovies(filters: FilterState) {
                         });
 
                         // Remove duplicates (just in case)
-                        const uniqueIds = new Set();
+                        const uniqueKeys = new Set();
                         allCandidates = allCandidates.filter(m => {
-                            if (uniqueIds.has(m.id)) return false;
-                            uniqueIds.add(m.id);
+                            const key = `${m.media_type}-${m.id}`;
+                            if (uniqueKeys.has(key)) return false;
+                            uniqueKeys.add(key);
                             return true;
                         });
 
@@ -79,7 +80,12 @@ export function useMovies(filters: FilterState) {
                 // Apply Filters on allCandidates
                 let filtered = allCandidates.filter(media => {
                     const isPerson = media.media_type === 'person';
-                    if (isPerson) return false; // Strictly exclude people as requested
+
+                    // Filter out items without images
+                    const imagePath = isPerson ? (media as any).profile_path : media.poster_path;
+                    if (!imagePath) return false;
+
+                    // Allow people in search results (don't return false)
 
                     const dateStr = media.release_date || media.first_air_date;
                     const year = dateStr ? new Date(dateStr).getFullYear() : null;
@@ -88,7 +94,7 @@ export function useMovies(filters: FilterState) {
                     const genreIds = media.genre_ids || [];
 
                     // 1. Year
-                    if (yearRange) {
+                    if (yearRange && !isPerson) {
                         if (year) {
                             if (year < yearRange[0] || year > yearRange[1]) return false;
                         } else if (!year) {
@@ -100,12 +106,12 @@ export function useMovies(filters: FilterState) {
                     }
 
                     // 2. Rating
-                    if (ratingRange) {
+                    if (ratingRange && !isPerson) {
                         if (rating < ratingRange[0] || rating > ratingRange[1]) return false;
                     }
 
                     // 3. Votes
-                    if (minVotes > 0) {
+                    if (minVotes > 0 && !isPerson) {
                         if (votes < minVotes) return false;
                     }
 
@@ -130,6 +136,12 @@ export function useMovies(filters: FilterState) {
 
                 // Apply Sort
                 filtered.sort((a, b) => {
+                    // Always show Person results first
+                    const isPersonA = a.media_type === 'person';
+                    const isPersonB = b.media_type === 'person';
+                    if (isPersonA && !isPersonB) return -1;
+                    if (!isPersonA && isPersonB) return 1;
+
                     const getVal = (m: Movie, key: string) => {
                         if (key === 'vote_average') return m.vote_average || 0;
                         if (key === 'popularity') return m.popularity || 0;

@@ -56,11 +56,13 @@ const PersonDetail: React.FC = () => {
 
     const allSortedCredits = useMemo(() => {
         if (!person) return [];
-        return [...(person.combined_credits?.cast || [])].sort((a: Movie, b: Movie) => {
-            const ratingA = a.vote_average || 0;
-            const ratingB = b.vote_average || 0;
-            return ratingB - ratingA;
-        });
+        return [...(person.combined_credits?.cast || [])]
+            .filter((m: Movie) => m.poster_path) // Filter out items without poster
+            .sort((a: Movie, b: Movie) => {
+                const ratingA = a.vote_average || 0;
+                const ratingB = b.vote_average || 0;
+                return ratingB - ratingA;
+            });
     }, [person]);
 
     const displayCredits = useMemo(() => {
