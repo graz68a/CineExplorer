@@ -1,92 +1,102 @@
-# CineExplorer
+# 🎬 CineExplorer
 
-CineExplorer is an advanced web application for discovering movies, TV series, and actors, relying on the **TMDB (The Movie Database)** API.
-It offers a modern, fluid, and responsive user interface, designed to provide a premium user experience, featuring **Gomoot** branding.
+A beautiful, modern Android application for discovering movies and TV shows, powered by TMDB API. Built with React and compiled natively using Capacitor.
 
-## ✨ Main Features
+## ✨ Features
 
-### 🔍 Discovery & Advanced Search
+- **Trending Content**: Discover what's hot today or this week with a sleek carousel interface.
+- **Advanced Search & Filtering**:
+  - Filter by Genre, Release Year, Vote Average.
+  - **Dynamic Streaming Providers**: Select your country to see where movies are streaming (Netflix, Prime, Disney+, etc.).
+  - **Production Country**: Filter by popular countries with smart search.
+- **Rich Details**: Watch official Youtube trailers, view cast members, and browse similar movie recommendations.
+- **Modern UI/UX**:
+  - Dark mode aesthetic with glassmorphism effects.
+  - Smooth animations using Framer Motion.
+  - Responsive layout optimized for mobile.
 
-* **Universal Search**: Search for movies, TV series, and people from a single bar.
-* **Trending Section**: Discover top titles for the day or week with an interactive carousel.
-* **Smart Filters**: Filter by **Year**, **Rating**, **Genre**, **Vote Count**, **Runtime**, and **Production Country**.
-* **Dynamic Sorting**: Sort by popularity, rating, release date, and more.
-* **Genre Exclusion**: Shift+Click on a genre to exclude it from results.
+## 🛠️ Tech Stack
 
-### 🎬 Content Details
+- **Frontend**: [React 18](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Mobile Runtime**: [Capacitor](https://capacitorjs.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Data Source**: [The Movie Database (TMDB) API](https://www.themoviedb.org/documentation/api)
 
-* **Complete Info**: Plot, cast, crew, technical details, and original titles.
-* **Streaming Availability**: Discover where to watch a movie/series in your country.
-* **Trailers**: Assessment trailers without leaving the page.
-* **Recommendations**: "You might also like" section for similar content.
+## 🚀 Getting Started
 
-### 👤 Actor Profiles & Filmography
+### Prerequisites
 
-* **Biographies**: Detailed information about actors.
-* **Interactive Filmography**: Browse all the works of an actor, sorted by **Rating**.
-* **Provider Filtering**: Filter an actor's filmography to see only what's available on your streaming services.
+- **Node.js**: v18 or higher
+- **Android Studio**: Required if you want to build the Android APK locally.
+- **TMDB API Key**: You need to register for a free API key at [themoviedb.org](https://www.themoviedb.org/settings/api).
 
-### ⚙️ Settings & Internationalization
+### Installation
 
-* **Regional Preferences**: Change the application language and streaming region (Italy, USA, UK, etc.).
-* **API Configuration**: Input your TMDB API keys directly in the Settings page. Keys are stored safely in `localStorage`.
-* **Local Network**: View your local LAN IP to easily access the app from your phone or tablet.
+1. **Clone the repository**
 
-## 🛠 Technology Stack
+   ```bash
+   git clone https://github.com/graz68a/CineExplorer.git
+   cd CineExplorer
+   ```
 
-* **Frontend**: React (Vite)
-* **Language**: TypeScript
-* **Styling**: Tailwind CSS, PostCSS
-* **Icons**: Lucide React, Simple Icons Branding
-* **Routing**: React Router
-* **HTTP Client**: Axios
-* **Animations**: Framer Motion
+2. **Install dependencies**
 
-## 🚀 Installation
+   ```bash
+   npm install
+   ```
 
-1. **Clone the repository**:
+3. **Setup Environment Variables**
+   Create a `.env` file in the root directory (copy from `.env.example`) and add your TMDB API Read Access Token (v4 auth):
 
-    ```bash
-    git clone [repo-url]
-    cd tmdb
-    ```
+   ```env
+   VITE_API_BASE_URL=https://api.themoviedb.org/3
+   VITE_TMDB_ACCESS_TOKEN=your_actual_access_token_here
+   ```
 
-2. **Install dependencies**:
+4. **Run Locally (Web Mode)**
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm run dev
+   ```
 
-3. **Start the server**:
+### 📱 Android Build
 
-    ```bash
-    npm run dev
-    ```
+To build the Android application:
 
-4. **Configuration**:
-    * Open the app in your browser settings URL.
-    * Enter your **TMDB API Key (v3)** and **Bearer Token (v4)**.
-    * Select your preferred Region/Language.
-    * Save.
+1. **Build the web project**
 
-## 🌍 Deployment (cPanel / Static Hosting)
+   ```bash
+   npm run build
+   ```
 
-This application is compatible with any static hosting service or cPanel.
+2. **Sync Capacitor**
 
-1. **Build the project**:
+   ```bash
+   npx cap sync android
+   ```
 
-    ```bash
-    npm run build
-    ```
+3. **Open in Android Studio** (Optional, for running on emulator)
 
-    This creates a `dist` folder with the optimized production files.
+   ```bash
+   npx cap open android
+   ```
 
-2. **Upload to cPanel**:
-    * Go to your cPanel **File Manager**.
-    * Navigate to `public_html` (or your subdomain folder).
-    * Upload **the contents** of the `dist` folder.
-    * **Important**: Ensure the `.htaccess` file (included in `dist`) is also uploaded to handle routing correctly.
+4. **Build APK from Command Line** (Windows)
 
-## 📱 Mobile Support
+   ```powershell
+   cd android
+   ./gradlew assembleDebug
+   ```
 
-The application is fully responsive and optimized for use on smartphones and tablets, with mobile-specific navigation menus, touch-friendly controls, and social media connectivity (Bluesky, Mastodon, Threads, etc.).
+   The APK will be generated at: `android/app/build/outputs/apk/debug/app-debug.apk`
+
+## ⚠️ Disclaimer
+
+This product uses the TMDB API but is not endorsed or certified by TMDB.
+All movie data and images are provided by The Movie Database.
+
+---
+
+Made with ❤️ by Graziano
