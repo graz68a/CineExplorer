@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { checkForUpdate, downloadAndInstallUpdate, type UpdateInfo } from '../services/updater';
+import { checkForUpdate, openReleasesPage, type UpdateInfo } from '../services/updater';
 import { Button } from './ui/Button';
-import { Download, Gift } from 'lucide-react';
+import { ExternalLink, Gift } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const UpdatePrompt: React.FC = () => {
     const [update, setUpdate] = useState<UpdateInfo | null>(null);
-    const [downloading, setDownloading] = useState(false);
-    const [progress, setProgress] = useState(0);
     const [show, setShow] = useState(false);
 
     useEffect(() => {
         const check = async () => {
-            // Only check in production/device mode usually, but allowed here for testing
-            // if (import.meta.env.DEV) return; 
-
             const info = await checkForUpdate();
             if (info && info.available) {
                 setUpdate(info);
@@ -27,21 +22,10 @@ export const UpdatePrompt: React.FC = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    const handleUpdate = async () => {
+    const handleOpenGitHub = async () => {
         if (!update) return;
-        setDownloading(true);
-        try {
-            await downloadAndInstallUpdate(update.downloadUrl, (pct) => {
-                setProgress(pct);
-            });
-            // After successful open, we can close (or keep open if user cancels intent)
-            setDownloading(false);
-            setShow(false);
-        } catch (e) {
-            console.error(e);
-            alert('Update failed. Please try again later.');
-            setDownloading(false);
-        }
+        await openReleasesPage(update.releasesUrl);
+        setShow(false);
     };
 
     if (!show || !update) return null;
@@ -67,7 +51,7 @@ export const UpdatePrompt: React.FC = () => {
                     <div className="space-y-2 relative z-10">
                         <div className="flex items-center gap-3">
                             <div className="bg-primary/20 p-3 rounded-full">
-                                <Download className="w-6 h-6 text-primary" />
+                                <ExternalLink className="w-6 h-6 text-primary" />
                             </div>
                             <div>
                                 <h3 className="text-xl font-bold tracking-tight">New Update Available</h3>
@@ -80,27 +64,14 @@ export const UpdatePrompt: React.FC = () => {
                         </div>
                     </div>
 
-                    {downloading ? (
-                        <div className="space-y-2">
-                            <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                                <motion.div
-                                    className="h-full bg-primary"
-                                    initial={{ width: 0 }}
-                                    animate={{ width: `${progress}%` }}
-                                />
-                            </div>
-                            <p className="text-center text-xs font-bold uppercase tracking-widest text-muted-foreground">Downloading {progress}%</p>
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-2 gap-4">
-                            <Button variant="outline" onClick={() => setShow(false)} className="w-full">
-                                Later
-                            </Button>
-                            <Button onClick={handleUpdate} className="w-full gap-2">
-                                <Download className="w-4 h-4" /> Update
-                            </Button>
-                        </div>
-                    )}
+                    <div className="grid grid-cols-2 gap-4">
+                        <Button variant="outline" onClick={() => setShow(false)} className="w-full">
+                            Later
+                        </Button>
+                        <Button onClick={handleOpenGitHub} className="w-full gap-2">
+                            <ExternalLink className="w-4 h-4" /> View on GitHub
+                        </Button>
+                    </div>
                 </motion.div>
             </motion.div>
         </AnimatePresence>
