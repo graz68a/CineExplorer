@@ -1,0 +1,65 @@
+CineExplorer - Installation Guide
+
+1. REQUIREMENTS
+   - Node.js (version 16 or higher)
+   - npm (normally included with Node.js)
+
+2. INSTALLATION STEP-BY-STEP
+
+   a) Unzip the project folder or clone the repository.
+   
+   b) Open a terminal (Command Prompt, PowerShell, or Terminal) in the project folder.
+   
+   c) Install dependencies by running:
+      npm install
+
+   d) Start the development server:
+      npm run dev
+
+   e) The terminal will show a local address, typically:
+      http://localhost:5173
+
+3. INITIAL CONFIGURATION (IMPORTANT!)
+
+   CineExplorer requires a valid TMDB API Key to function. You can configure this directly in the app.
+
+   a) Open the application in your browser.
+   b) Click on the "Settings" icon (gear) in the top right of the Header.
+   c) Enter your TMDB keys:
+      - API Key (v3)
+      - Bearer Token (v4)
+   d) (Optional) Select your Region and Language preferences.
+   e) Click "Save Settings".
+
+   Note: You can obtain these keys for free by registering at https://www.themoviedb.org/
+
+4. ACCESS FROM OTHER DEVICES
+   
+   To use the app on your smartphone or tablet connected to the same Wi-Fi network:
+   a) Go to the Settings page in the app on your PC.
+   b) Look for the "Network & Connectivity" section.
+   c) You will see a "Local Interface Address" (e.g., 192.168.1.X).
+   d) Type that IP address followed by :5173 into your phone's browser (e.g., http://192.168.1.5:5173).
+
+5. TROUBLESHOOTING
+   - If you see "Connection Error", check that your API keys are correct in the Settings.
+   - If images don't load, check your internet connection (TMDB requires online access).
+   - If you cannot access from a mobile device, check your PC's firewall settings to allow connections on port 5173.
+
+6. DEPLOYMENT TO PRODUCTION (cPanel / Static Hosting)
+
+   To take your site online (e.g. on cPanel, Netlify, Vercel, or any shared hosting):
+
+   a) Build the project for production:
+      Open your terminal and run:
+      npm run build
+      
+      This will create a 'dist' folder in your project directory containing optimized HTML, CSS, and JS files.
+
+   b) Upload to your server (cPanel example):
+      1. Go to File Manager in cPanel.
+      2. Navigate to 'public_html' (or your subdomain folder).
+      3. Upload ONLY the CONTENTS of the 'dist' folder (index.html, assets folder, .htaccess, etc.).
+      4. DO NOT upload the 'node_modules' folder or the 'src' folder.
+
+   Note: A .htaccess file is automatically generated in the build to ensure the app works correctly even when refreshing subpages (e.g., /movie/123). Please ensure your file manager shows hidden files (starting with dot) so you don't miss uploading it.

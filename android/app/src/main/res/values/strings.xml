@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">CineExplorer</string>
+    <string name="title_activity_main">CineExplorer</string>
+    <string name="package_name">com.cineexplorer.app</string>
+    <string name="custom_url_scheme">com.cineexplorer.app</string>
+</resources>

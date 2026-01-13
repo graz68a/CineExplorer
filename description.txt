@@ -1,0 +1,31 @@
+CineExplorer is a modern and intuitive web application for exploring movies and TV series, built with React and the TMDB (The Movie Database) API.
+
+Main Features:
+1.  **Exploration & Search**:
+    *   **Universal Search**: Unified search bar for movies, TV series, and people with live results.
+    *   **Advanced search filters**: Year range, Rating range, Genres (include/exclude), Vote count, Production Country.
+    *   **Dynamic Sorting**: Sort results by Popularity, Rating, Release Date, or Vote Count.
+    *   **Trending Section**: Explore trending titles for "Today" and "This Week" with a horizontal scrollable carousel.
+
+2.  **Detailed Information**:
+    *   **Overview**: Complete plots, technical data (runtime, year, country, audio languages), and release dates.
+    *   **Cast & Crew**: List of main actors with links to their dedicated profiles.
+    *   **Streaming Availability**: See where to watch content (Netflix, Prime Video, Disney+, etc.) based on your region.
+    *   **Similar Content**: Recommendations based on the currently viewed title.
+    *   **Trailers**: Direct integration with YouTube for trailers without leaving the app.
+
+3.  **Actor Profiles**:
+    *   Dedicated pages for actors with biography and personal details.
+    *   **Filmography**: Complete list of movies and TV series they have participated in, sortable by Rating.
+    *   **Smart Filtering**: Filter an actor's filmography to show only titles available on your preferred streaming services.
+
+4.  **Customization & Settings**:
+    *   **Region & Language**: Change the content language and streaming provider region (e.g., Italy, USA, UK, France, Spain, Germany).
+    *   **API Configuration**: Configure your TMDB API Key directly from the UI (saved locally in the browser).
+    *   **Network**: Local IP detection to easily share the app URL with other devices on your LAN.
+
+5.  **Modern UI/UX**:
+    *   **Vibrant Design**: Glassmorphism effects, dynamic gradients (Red/Orange), and smooth animations.
+    *   **Responsive**: Optimized for Desktop, Tablet, and Mobile.
+    *   **Social Connectivity**: Footer with links to official social profiles (Bluesky, Mastodon, Threads, X, WhatsApp).
+    *   **Branding**: "Made by Gomoot" branding.
