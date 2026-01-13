@@ -4,9 +4,12 @@ import MovieDetail from './components/MovieDetail';
 import PersonDetail from './components/PersonDetail';
 import FilterScreen from './components/FilterScreen';
 
+import { UpdatePrompt } from './components/UpdatePrompt';
+
 function App() {
   return (
     <BrowserRouter>
+      <UpdatePrompt />
       <Routes>
         <Route path="/" element={<MovieSearch />} />
         <Route path="/filters" element={<FilterScreen />} />
