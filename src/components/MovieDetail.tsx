@@ -3,7 +3,7 @@ import { useLocation, useParams, useNavigate, Link } from 'react-router-dom';
 import { getContent, getImageUrl, getContentVideos, getContentCredits, getSimilarContent, getWatchProviders, getTvDetails, getTvSeasonEpisodes } from '../services/api';
 import type { Movie, CastMember, WatchRegion } from '../types/tmdb';
 import { Button } from './ui/Button';
-import { ArrowLeft, Star, Calendar, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Star, Calendar } from 'lucide-react';
 import { Badge } from './ui/Badge';
 import { motion } from 'framer-motion';
 import { cn } from '../lib/utils';
@@ -208,6 +208,14 @@ const MovieDetail: React.FC = () => {
                                     </>
                                 );
                             })()}
+                            {/* Original Title Display */}
+                            {(movie.original_title || movie.original_name) &&
+                                (movie.original_title !== (movie.title || movie.name)) && (
+                                    <div className="flex justify-between border-b border-border/30 py-1">
+                                        <span>Original:</span>
+                                        <span className="font-medium text-foreground text-right italic max-w-[180px] truncate">{movie.original_title || movie.original_name}</span>
+                                    </div>
+                                )}
                             {(movie.release_date || movie.first_air_date) && (
                                 <div className="flex justify-between border-b border-border/30 py-1">
                                     <span>Year:</span>
@@ -419,17 +427,6 @@ const MovieDetail: React.FC = () => {
                                             })()}
                                         </div>
                                     </div>
-                                    <div className="flex flex-col gap-2">
-                                        <a
-                                            href={watchProviders.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center justify-center gap-2 bg-[#FBC02D] hover:bg-[#F9A825] text-black font-black px-6 py-3 rounded-2xl shadow-xl transition-all active:scale-95 text-sm"
-                                        >
-                                            CHECK ON JUSTWATCH <ExternalLink className="w-4 h-4" />
-                                        </a>
-                                        <p className="text-[10px] text-muted-foreground text-center uppercase tracking-widest font-bold">Data provided by JustWatch</p>
-                                    </div>
                                 </div>
                             </motion.section>
                         )}
@@ -515,8 +512,8 @@ const MovieDetail: React.FC = () => {
                         )}
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 
